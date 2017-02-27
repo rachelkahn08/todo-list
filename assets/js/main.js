@@ -79,14 +79,13 @@ function createToDo() {
 		checkbox.classList.add("checkbox");
 	
 	var newItemText = document.createElement("p");
+		newItemText.classList.add("list-item-text");
 		newItemText.innerHTML = itemText;
 
 	var closeButton = document.createElement("button");
 		closeButton.classList.add("close-button");
-		closeButton.style.height = "1em";
-		closeButton.style.width = "1em";
-		closeButton.style.fontSize = "1em";
 		closeButton.innerHTML = "X";
+		closeButton.style.width = "20px";
 	
 	var newItem = document.createElement("li");
 		newItem.classList.add("list-item");
@@ -101,17 +100,19 @@ function createToDo() {
 
 	if (!olContainer) {
 		var olContainer = document.querySelector(".content ol");
-		olContainer.style.border = "solid 2px black"
-		olContainer.style.marginTop = "20px"
+		olContainer.style.border = "solid 2px #333";
+		olContainer.style.marginTop = "20px";
+		olContainer.style.padding = "10px"
+		olContainer.style.backgroundColor = "rgba(255, 243, 232, 0.7)";
 	}
 
 	toDoInputField.value = "Enter item here...";
 
 }
 
-var form = document.querySelector("form");
+var submitButton = document.querySelector(".submit-button");
 
-form.addEventListener("submit", function(e) {
+submitButton.addEventListener("click", function(e) {
 	e.preventDefault();
 	createToDo();
 });

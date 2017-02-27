@@ -3,24 +3,34 @@
   	box-sizing: border-box; 
 }
 
+body {
+	background-image: url("../img/wood-floor.jpeg");
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+@font-face {
+    font-family: aldine;
+    src: url("../fonts/Aldine.ttf");
+}
 
 .content {
 	margin-left: 50%;
 	transform: translate(-50%);
 	width: 70%;
-	background: #AEAEAE;
+	height: 90%;
 	margin-top: 5%;
-	padding-bottom: 20px;
+	margin-bottom: 5%;
+	font-family: "helvetica neue";
 }
 
 .content h1 {
 	width: 100%;
 	text-align: center;
-	font-size: 3em;
-	font-family: "helvetica neue";
+	font-family: aldine;
+	font-size: 10em;
+	color: #333;
 	padding: 20px 0 20px 0;
-	font-weight: 500;
-	text-decoration: underline;
 }
 
 .content form {
@@ -32,14 +42,10 @@
 	width: 60%;
 }
 
-.content button {
-	width: 15%;
-	margin-left: 5%%;
-}
-
-.list-item p,
-.list-item input {
+.submit-button-container {
 	display: inline;
+	width: 15%;
+	padding-left: 5%;
 }
 
 .content ol {
@@ -48,17 +54,29 @@
 	margin-left: 15%;
 }
 
-.content li {
+.list-item {
 	width: 100%;
-	background: white;
+	display: flex;
+	flex-direction: row;
+}
+
+.checkbox {
+	width: 2%;
+}
+
+.list-item-text {
+	margin-left: 3%;
+	width: 90%;
+	font-weight: 200;
 }
 
 .close-button {
-	float: right;
+	align-self: flex-end;
 	border: 1px solid black;
-	margin: 1px 5% 1px 0;
-	text-align: center;
+	width: 15px;
+	margin-left: 3%;
 }
+
 
 
 
