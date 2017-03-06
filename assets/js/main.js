@@ -6,6 +6,7 @@ var toDoInputField = document.querySelector(".to-do-input");
 	var markIncomplete = document.querySelector(".mark-incomplete");
 	var toggleCompleted = document.querySelector(".toggle-completed");
 	var deleteCompleted = document.querySelector(".delete-completed");
+	var deleteSelected = document.querySelector(".delete-selected")
 	var checkbox = document.querySelector(".checkbox");
 	var saveList = document.querySelector(".save-list");
 	var listItems = document.querySelectorAll(".list-item");
@@ -16,10 +17,7 @@ toDoInputField.addEventListener("focus", function() {
 	toDoInputField.value = null;
 	})
 
-addItem.addEventListener("click", function(e) {
-	e.preventDefault();
-	createToDo();
-});
+addItem.addEventListener("click", createToDo);
 
 select.addEventListener("click", selectAllItems);
 
@@ -33,6 +31,10 @@ saveList.addEventListener("click", storeToDoList);
 
 toggleCompleted.addEventListener("click", toggleCompletedItems);
 
+deleteCompleted.addEventListener("click", deleteAllCompleted);
+
+deleteSelected.addEventListener("click", deleteAllSelected);
+
 function createToDo() {
 
 	var	itemText = toDoInputField.value;
@@ -44,15 +46,22 @@ function createToDo() {
 		newItemText.classList.add("list-item-text");
 		newItemText.innerHTML = itemText;
 
+	var trashcanIcon = document.createElement("div");
+		trashcanIcon.classList.add("trashcan-icon");
+		trashcanIcon.classList.add("hidden");
+
 	var newItem = document.createElement("li");
 		newItem.classList.add("list-item");
 		newItem.appendChild(checkbox);
 		newItem.appendChild(newItemText);
+		newItem.appendChild(trashcanIcon);
 		newItemName = "newItem" + numberOfItems;
 		newItem.setAttribute("data-name", newItemName);
 		newItem.setAttribute("data-checked", "false");
 		newItem.setAttribute("data-completed", "false");
 		newItem.setAttribute("data-item-text", newItemText.innerHTML);
+
+	trashcanListeners(newItem);
 
 	var listParent = document.querySelector(".to-do-list");
 		listParent.appendChild(newItem);
@@ -70,14 +79,13 @@ function checkboxListener(checkbox) {
 
 
 	function toggleCheckbox (){
-		console.log(listItem.dataset.checked);
 
 		if ( listItem.dataset.checked == "false"
 		&& listItem.dataset.completed == "false") {
 			checkbox.innerHTML = "&#10003;";
 			listItem.setAttribute("data-checked", "true");
-		} else {
-			checkbox.innerHTML = "";
+		} else if ( listItem.dataset.completed == "false") {
+			checkbox.innerHTML = null;
 			listItem.setAttribute("data-checked", "false");
 		}
 	}
@@ -144,20 +152,13 @@ function markItemsIncomplete() {
 function toggleCompletedItems() {
 	var completedItems = document.querySelectorAll(".completed");
 	for (var i = completedItems.length - 1; i >= 0; i--) {
-		if ( !completedItems[i].classList.contains(".hidden")) {
+		if ( !completedItems[i].classList.contains("hidden")) {
 			completedItems[i].classList.add("hidden");
-		} else if ( completedItems[i].classList.contains(".hidden") ){
+		} else if ( completedItems[i].classList.contains("hidden") ){
 			completedItems[i].classList.remove("hidden");
 		}
 	}
 }
-
-// function showCompletedItems() {
-// 	var hiddenItems = document.querySelectorAll(".hidden");
-// 	for (var i = hiddenItems.length - 1; i >= 0; i--) {
-		
-// 	}
-// }
 
 function storeToDoList () {
 	var listItems = document.querySelectorAll(".list-item")
@@ -168,12 +169,63 @@ function storeToDoList () {
 	}
 }
 
-window.onLoad = loadSavedToDoList();
+function deleteAllCompleted() {
+	var listItems = document.querySelectorAll(".list-item");
 
-function loadSavedToDoList() {
-	savedList = localStorage.getItem("listItem");
-	console.log(savedList);
+	for (var i = listItems.length - 1; i >= 0; i--) {
+		if (listItems[i].dataset.completed == "true") {
+				listItems[i].parentNode.removeChild(listItems[i]);
+			}
+	}
 }
+
+function deleteAllSelected() {
+	var listItems = document.querySelectorAll(".list-item");
+
+	for (var i = listItems.length - 1; i >= 0; i--) {
+		console.log("function running");
+		if ( listItems[i].dataset.checked == "true"
+			&& listItems[i].dataset.completed == "false") {
+				listItems[i].parentNode.removeChild(listItems[i]);
+				console.log("deleteThisItem");
+			}
+	}
+}
+
+
+function trashcanListeners(e) {
+
+	e.addEventListener("mouseover", revealTrashcanIcon);
+	e.addEventListener("mouseout", hideTrashcanIcon);
+
+
+	var trashcanIcon = e.lastChild;
+	
+	trashcanIcon.addEventListener("click", deleteThisItem);
+
+	function revealTrashcanIcon() {	
+		if ( trashcanIcon.classList.contains("hidden")) {
+			trashcanIcon.classList.remove("hidden");
+		}
+	}
+
+	function hideTrashcanIcon() {
+		if ( !trashcanIcon.classList.contains("hidden") ) {
+			trashcanIcon.classList.add("hidden");
+		}
+
+	}
+
+	function deleteThisItem() {
+		e.parentNode.removeChild(e);
+	}
+}
+// window.onLoad = loadSavedToDoList();
+
+// function loadSavedToDoList() {
+// 	savedList = localStorage.getItem("listItem");
+// 	console.log(savedList);
+// }
 
 console.log(document.querySelectorAll(".list-item"));
 
@@ -187,6 +239,8 @@ console.log(document.querySelectorAll(".list-item"));
 // Hide/show completed
 
 // Delete all completed
+
+//item counter
 
 
 
