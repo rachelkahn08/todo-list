@@ -6,7 +6,9 @@
 		<title></title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
 
+		<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
 		<link rel="stylesheet" href="assets/css/reset.css">
 		<link rel="stylesheet" href="assets/css/main.css">
 	</head>
@@ -15,13 +17,30 @@
 		<div class="content">
 			<h1 class="title">to-do list</h1>
 			<form>
-				<input type="text" name="todo-input" class="to-do-input" value="Enter item here...">
+				<input type="text" name="to-do-input" class="to-do-input" value="Enter item here...">
 
-				<div class="submit-button-container">
-					<button type="submit" class="submit-button">add!</button>
+				
+				<div class="button add-item">add item!</div>
+
+				<div class="other-options">
+					<div class="button select-all">select all
+					</div>
+					<div class="button deselect-all">deselect all
+					</div>
+					<div class="button mark-complete">mark selected items complete
+					</div>
+					<div class="button mark-incomplete">mark all items incomplete
+					</div>
+					<div class="button toggle-completed">hide/show completed items
+					</div>
+					<div class="button delete-completed">delete selected items
+					</div>
+					<div class="button save-list">save to-do list for later
+					</div>
 				</div>
 				
-				<ol class="to-do-list"></ol>
+				<ol class="to-do-list">
+				</ol>
 			</form>
 		</div>
 
